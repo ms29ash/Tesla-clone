@@ -1,20 +1,25 @@
 import React from "react";
 import Styled from "styled-components";
 import { AiOutlineDown } from "react-icons/ai";
+import withReveal from "react-reveal/withReveal";
+import { Fade } from "react-reveal";
 
-function Section() {
+function Section({ bgImg, title, description, descriptionLink, rightBtn, leftBtn }) {
+
+
   return (
-    <SectionContain>
+    <SectionContain bgImg={bgImg} >
       <TextItem>
-        <h1>Model 3</h1>
+        <h1>{title}</h1>
         <p>
-          Order Online for <a href="">Touchless Delivery</a>
+          {description} <a href="/">{descriptionLink}</a>
         </p>
       </TextItem>
       <Buttons>
         <ButtonGroup>
-          <RightButton>Custom Order</RightButton>
-          <LeftButton>Existing Inventory</LeftButton>
+          <RightButton>{rightBtn}</RightButton>
+          {leftBtn &&
+            <LeftButton>{leftBtn}</LeftButton>}
         </ButtonGroup>
         <Arrowrpper>
           <DownArrow />
@@ -27,39 +32,50 @@ function Section() {
 export default Section;
 
 const SectionContain = Styled.div`
+scroll-snap-align: start;
 width:100vw;
 height:100vh;
-background: url("https://tesla-cdn.thron.com/delivery/public/image/tesla/03e533bf-8b1d-463f-9813-9a597aafb280/bvlatuR/std/4096x2560/M3-Homepage-Desktop-LHD") no-repeat center/cover;
+background: ${props => `url("/images/${props.bgImg}")`} no-repeat center/cover;
 justify-content: space-around;
 display:flex;
 flex-direction: column;
 align-items: center;
 `;
 
-const TextItem = Styled.div`
+const TextItem = withReveal(
+  Styled.div`
 height:100vh;
-padding:15vh;
+padding:35vh 0;
 text-align: center;
 p{
     font-size:14px;
+    margin-top:7px;
     a{
       text-decoration:underline;
     }
 }
-`;
+`,
+  <Fade duration={1000} distance={"100px"} bottom />
+);
 const Buttons = Styled.div`
 
 display:flex;
 flex-direction:column;
 align-items: center;
+margin-bottom:25vh;
 `;
 
-const ButtonGroup = Styled.div`
+const ButtonGroup = withReveal(
+  Styled.div`
 display:flex;
 align-items: center;
 justify-content: center;
-margin-bottom:5vh;
-`;
+@media (max-width: 768px) {
+  flex-direction: column;
+}
+`,
+  <Fade duration={1000} distance={"50px"} bottom />
+);
 
 const RightButton = Styled.button`
 background-color:rgba(0, 0, 0, 0.7);
@@ -67,8 +83,9 @@ border:none;
 font-weight:600;
 border-radius:50px;
 color:white;
-padding:10px 65px;
-margin:0 5px;
+width:300px;
+padding:10px 0px;
+margin:8px 5px;
 `;
 
 const LeftButton = Styled(RightButton)`

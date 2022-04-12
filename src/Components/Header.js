@@ -58,18 +58,17 @@ function Header() {
           Menu
         </NavLink>
       </SideMenu>
-      
-        <Menu show={menuDisplay}>
-          <CloseButton>
-            <AiOutlineClose onClick={() => setMenuDisplay(false)} />
-          </CloseButton>
-          <NavItems>
-            {navItem.map((item, index) => {
-              return <NavLink key={index}>{item}</NavLink>;
-            })}
-          </NavItems>
-        </Menu>
-      
+
+      <Menu show={menuDisplay}>
+        <CloseButton>
+          <AiOutlineClose onClick={() => setMenuDisplay(false)} />
+        </CloseButton>
+        <NavItems>
+          {navItem.map((item, index) => {
+            return <NavLink key={index}>{item}</NavLink>;
+          })}
+        </NavItems>
+      </Menu>
     </Nav>
   );
 }
@@ -86,6 +85,8 @@ left: 0;
 right: 0;
 display:flex;
 align-items: center;
+justify-content: space-between;
+z-index: 100;
 
 `;
 
@@ -100,6 +101,9 @@ align-items: center;
 justify-content: center;
 flex:1;
 flex-wrap: nowrap;
+@media(max-width:1200px){
+  display:none;
+}
 `;
 
 const NavLink = Styled.button`
